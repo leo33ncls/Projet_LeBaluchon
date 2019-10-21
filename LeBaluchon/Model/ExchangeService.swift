@@ -12,7 +12,7 @@ class ExchangeService {
     static var shared = ExchangeService()
     private init() {}
     
-    private static let exchangeURL = URL(string: "")!
+    private static let exchangeURL = URL(string: "http://")!
     
     private var task: URLSessionDataTask?
     
