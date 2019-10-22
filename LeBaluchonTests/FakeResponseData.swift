@@ -18,6 +18,15 @@ class FakeResponseData {
     
     static let exchangeIncorrectData = "erreur".data(using: .utf8)!
     
+    static var translationCorrectData: Data {
+        let bundle = Bundle(for: FakeResponseData.self)
+        let url = bundle.url(forResource: "Translation", withExtension: "json")
+        let data = try! Data (contentsOf: url!)
+        return data
+    }
+    
+    static let translationIncorrectData = "erreur".data(using: .utf8)!
+    
     static let responseOK = HTTPURLResponse(url: URL(string: "https://")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
     
     static let responseKO = HTTPURLResponse(url: URL(string: "https://")!, statusCode: 500, httpVersion: nil, headerFields: nil)!
