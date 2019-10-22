@@ -12,7 +12,7 @@ class TranslationService {
     static var shared = TranslationService()
     private init() {}
     
-    private static let translationURL = URL(string: "http://")!
+    private static let translationURL = URL(string: "https://translation.googleapis.com/language/translate/v2")!
     
     private var task: URLSessionDataTask?
     

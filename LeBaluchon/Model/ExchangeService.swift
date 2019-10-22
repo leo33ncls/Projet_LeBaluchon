@@ -12,7 +12,7 @@ class ExchangeService {
     static var shared = ExchangeService()
     private init() {}
     
-    private static let exchangeURL = URL(string: "http://")!
+    private static let exchangeURL = URL(string: "http://data.fixer.io/api/latest")!
     
     private var task: URLSessionDataTask?
     
