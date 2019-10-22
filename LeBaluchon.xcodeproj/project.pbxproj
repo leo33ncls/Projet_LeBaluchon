@@ -22,6 +22,7 @@
 		28FC1CDF235F49CF002D6A27 /* TranslationServiceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FC1CDE235F49CF002D6A27 /* TranslationServiceTestCase.swift */; };
 		28FC1CE1235F501D002D6A27 /* TranslationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FC1CE0235F501D002D6A27 /* TranslationService.swift */; };
 		28FC1CE3235F50DD002D6A27 /* Translation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FC1CE2235F50DD002D6A27 /* Translation.swift */; };
+		28FC1CE5235F804F002D6A27 /* TranslationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FC1CE4235F804F002D6A27 /* TranslationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		28FC1CDE235F49CF002D6A27 /* TranslationServiceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationServiceTestCase.swift; sourceTree = "<group>"; };
 		28FC1CE0235F501D002D6A27 /* TranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationService.swift; sourceTree = "<group>"; };
 		28FC1CE2235F50DD002D6A27 /* Translation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translation.swift; sourceTree = "<group>"; };
+		28FC1CE4235F804F002D6A27 /* TranslationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				28C75CEF234D1E6600FE2B8F /* ExchangeRateViewController.swift */,
+				28FC1CE4235F804F002D6A27 /* TranslationViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28C75D14235CCF0600FE2B8F /* ExchangeRate.swift in Sources */,
+				28FC1CE5235F804F002D6A27 /* TranslationViewController.swift in Sources */,
 				28FC1CE1235F501D002D6A27 /* TranslationService.swift in Sources */,
 				28C75CF0234D1E6600FE2B8F /* ExchangeRateViewController.swift in Sources */,
 				28C75CDE234D1AB800FE2B8F /* AppDelegate.swift in Sources */,
