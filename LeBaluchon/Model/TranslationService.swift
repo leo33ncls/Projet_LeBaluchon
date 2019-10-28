@@ -12,7 +12,7 @@ class TranslationService {
     static var shared = TranslationService()
     private init() {}
     
-    private static let translationURL = URL(string: "https://translation.googleapis.com/language/translate/v2")!
+    private static let translationURL = URL(string: "https://translation.googleapis.com/language/translate/v2" + keyTranslationAPI)!
     
     private var task: URLSessionDataTask?
     
@@ -25,18 +25,21 @@ class TranslationService {
     private func createTranslationRequest(textToTranslate: String) -> URLRequest {
         var request = URLRequest(url: TranslationService.translationURL)
         request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let sourceLanguage = "fr"
         let targetLanguage = "en"
-        let textToTranslate = textToTranslate
         
+        //let body = "q=\(textToTranslate)&source=\(sourceLanguage)&target=\(targetLanguage)"
         let body = """
-        {
-        "q": \(textToTranslate)
-        "source": \(sourceLanguage)
-        "target": \(targetLanguage)
-        }
-        """
+{
+"q": "Et c'est parti!",
+"source": "fr",
+"target": "en",
+"format": "text"
+}
+"""
+        
         request.httpBody = body.data(using: .utf8)
         
         return request

@@ -12,22 +12,20 @@ class ExchangeRateViewController: UIViewController {
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var convertedAmountLabel: UILabel!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     @IBAction func getExchange(_ sender: UIButton) {
         let amountToConvert = amountTextField.text
         
-        if let amountTC = amountToConvert {
-            if let amount = Double(amountTC) {
-                let convertedAmount = amount * 1.2
-                convertedAmountLabel.text = "\(convertedAmount) $"
+        guard let amountTC = amountToConvert else { return showAlert(message: "Veuillez entrer un montant!") }
+        guard let amount = Double(amountTC) else { return showAlert(message: "Entrez un chiffre!") }
+        
+        ExchangeService.shared.getExchange { (success, exchange) in
+            if success, let exchange = exchange {
+                let convertedAmount = amount * exchange.rates["USD"]!
+                self.convertedAmountLabel.text = String(convertedAmount)
             } else {
-                showAlert(message: "Entrez un chiffre!")
+                self.showAlert(message: "Requête Invalide!")
             }
-        } else {
-            showAlert(message: "Veuillez entrer un montant!")
         }
     }
     

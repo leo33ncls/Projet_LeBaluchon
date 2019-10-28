@@ -12,7 +12,7 @@ class ExchangeService {
     static var shared = ExchangeService()
     private init() {}
     
-    private static let exchangeURL = URL(string: "http://data.fixer.io/api/latest")!
+    private static let exchangeURL = URL(string: "http://data.fixer.io/api/latest" + keyExchangeAPI)!
     
     private var task: URLSessionDataTask?
     
@@ -23,7 +23,6 @@ class ExchangeService {
     }
     
     func getExchange(callback: @escaping (Bool, ExchangeRate?) -> Void) {
-        
         task?.cancel()
         task = session.dataTask(with: ExchangeService.exchangeURL) { (data, response, error) in
             DispatchQueue.main.async {
@@ -42,7 +41,7 @@ class ExchangeService {
                     return
                 }
                 
-                let exchange = ExchangeRate.init(success: responseJSON.success, timestamp: responseJSON.timestamp, base: responseJSON.base, date: responseJSON.date, rates: responseJSON.rates)
+                let exchange = responseJSON
                 callback(true, exchange)
             }
         }

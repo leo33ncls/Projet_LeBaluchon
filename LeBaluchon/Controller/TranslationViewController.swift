@@ -23,7 +23,7 @@ class TranslationViewController: UIViewController {
         if let text = textToTranslate {
             TranslationService.shared.getTranslation(textToTranslate: text) { (success, translation) in
                 if success, let translation = translation {
-                    self.textTranslatedTextView.text! = translation.data.translations[0].translatedText
+                    self.textTranslatedTextView.text = translation.data.translations[0].translatedText
                 } else {
                     self.showAlert(title: "Erreur!", message: "Requête invalide!")
                 }
