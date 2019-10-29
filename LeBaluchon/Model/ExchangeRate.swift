@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - ExchangeRate
 struct ExchangeRate: Codable {
     var success: Bool
     var timestamp: Int

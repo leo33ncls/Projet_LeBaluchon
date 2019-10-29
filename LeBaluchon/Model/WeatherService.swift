@@ -1,18 +1,18 @@
 //
-//  ExchangeService.swift
+//  WeatherService.swift
 //  LeBaluchon
 //
-//  Created by Léo NICOLAS on 09/10/2019.
+//  Created by Léo NICOLAS on 29/10/2019.
 //  Copyright © 2019 Léo NICOLAS. All rights reserved.
 //
 
 import Foundation
 
-class ExchangeService {
-    static var shared = ExchangeService()
+class WeatherService {
+    static var shared = WeatherService()
     private init() {}
     
-    private static let exchangeURL = "http://data.fixer.io/api/latest"
+    private static let weatherUrl = URL(string: "api.openweathermap.org/data/2.5/weather" + keyWeatherAPI)!
     
     private var task: URLSessionDataTask?
     
@@ -22,17 +22,21 @@ class ExchangeService {
         self.session = session
     }
     
-    private func createExchangeUrl() -> URL {
-        let parameters = "&base=EUR&symbols=USD"
+    private func createWeatherRequest() -> URLRequest {
+        var request = URLRequest(url: WeatherService.weatherUrl)
+        request.httpMethod = "GET"
         
-        return URL(string: ExchangeService.exchangeURL + keyExchangeAPI + parameters)!
+        let body = "?q=Bordeaux&units=metric"
+        request.httpBody = body.data(using: .utf8)
+        
+        return request
     }
     
-    func getExchange(callback: @escaping (Bool, ExchangeRate?) -> Void) {
-        let url = createExchangeUrl()
+    func getWeather(callback: @escaping (Bool, Weather?) -> Void) {
+        let request = createWeatherRequest()
         
         task?.cancel()
-        task = session.dataTask(with: url) { (data, response, error) in
+        task = session.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     callback(false, nil)
@@ -44,13 +48,13 @@ class ExchangeService {
                     return
                 }
                 
-                guard let responseJSON = try? JSONDecoder().decode(ExchangeRate.self, from: data) else {
+                guard let responseJSON = try? JSONDecoder().decode(Weather.self, from: data) else {
                     callback(false, nil)
                     return
                 }
                 
-                let exchange = responseJSON
-                callback(true, exchange)
+                let weather = responseJSON
+                callback(true, weather)
             }
         }
         task?.resume()

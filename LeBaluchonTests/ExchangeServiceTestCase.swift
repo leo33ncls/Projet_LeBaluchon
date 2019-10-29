@@ -61,7 +61,7 @@ class ExchangeServiceTestCase: XCTestCase {
     
     func testGetExchangeShouldPostFailedCallbackIfIncorrectData() {
         // Given
-        let exchangeService = ExchangeService(session: URLSessionFake(data: FakeResponseData.exchangeIncorrectData, response: FakeResponseData.responseOK, error: nil))
+        let exchangeService = ExchangeService(session: URLSessionFake(data: FakeResponseData.incorrectData, response: FakeResponseData.responseOK, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
@@ -92,11 +92,11 @@ class ExchangeServiceTestCase: XCTestCase {
             XCTAssertTrue(success)
             XCTAssertNotNil(exchange)
             
-            XCTAssertEqual(success, exchange!.success)
-            XCTAssertEqual(timestamp, exchange!.timestamp)
+            XCTAssertEqual(success, exchange?.success)
+            XCTAssertEqual(timestamp, exchange?.timestamp)
             XCTAssertEqual(base, exchange?.base)
-            XCTAssertEqual(date, exchange!.date)
-            XCTAssertEqual(rates, exchange!.rates)
+            XCTAssertEqual(date, exchange?.date)
+            XCTAssertEqual(rates, exchange?.rates)
             
             expectation.fulfill()
         }

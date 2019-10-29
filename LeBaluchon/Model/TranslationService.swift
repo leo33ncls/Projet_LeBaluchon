@@ -30,15 +30,14 @@ class TranslationService {
         let sourceLanguage = "fr"
         let targetLanguage = "en"
         
-        //let body = "q=\(textToTranslate)&source=\(sourceLanguage)&target=\(targetLanguage)"
         let body = """
-{
-"q": "Et c'est parti!",
-"source": "fr",
-"target": "en",
-"format": "text"
-}
-"""
+        {
+        "q": "\(textToTranslate)",
+        "source": "\(sourceLanguage)",
+        "target": "\(targetLanguage)",
+        "format": "text"
+        }
+        """
         
         request.httpBody = body.data(using: .utf8)
         

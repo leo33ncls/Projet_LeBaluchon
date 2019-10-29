@@ -16,16 +16,21 @@ class FakeResponseData {
         return data
     }
     
-    static let exchangeIncorrectData = "erreur".data(using: .utf8)!
-    
     static var translationCorrectData: Data {
         let bundle = Bundle(for: FakeResponseData.self)
         let url = bundle.url(forResource: "Translation", withExtension: "json")
-        let data = try! Data (contentsOf: url!)
+        let data = try! Data(contentsOf: url!)
         return data
     }
     
-    static let translationIncorrectData = "erreur".data(using: .utf8)!
+    static var weatherCorrectData: Data {
+        let bundle = Bundle(for: FakeResponseData.self)
+        let url = bundle.url(forResource: "Weather", withExtension: "json")
+        let data = try! Data(contentsOf: url!)
+        return data
+    }
+    
+    static let incorrectData = "erreur".data(using: .utf8)!
     
     static let responseOK = HTTPURLResponse(url: URL(string: "https://")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
     

@@ -61,7 +61,7 @@ class TranslationServiceTestCase: XCTestCase {
     
     func testGetTranslationShouldPostFailedCallbackIfIncorrectData() {
         // Given
-        let translationService = TranslationService(session: URLSessionFake(data: FakeResponseData.translationIncorrectData, response: FakeResponseData.responseOK, error: nil))
+        let translationService = TranslationService(session: URLSessionFake(data: FakeResponseData.incorrectData, response: FakeResponseData.responseOK, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
