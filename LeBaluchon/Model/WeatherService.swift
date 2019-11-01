@@ -12,52 +12,78 @@ class WeatherService {
     static var shared = WeatherService()
     private init() {}
     
-    private static let weatherUrl = URL(string: "api.openweathermap.org/data/2.5/weather" + keyWeatherAPI)!
+    private static let weatherBaseUrl = "http://api.openweathermap.org/data/2.5/weather"
+    private static let iconWeatherUrl = "http://openweathermap.org/img/wn/"
     
     private var task: URLSessionDataTask?
     
-    private var session = URLSession(configuration: .default)
+    private var weatherSession = URLSession(configuration: .default)
+    private var imageWeatherSession = URLSession(configuration: .default)
     
-    init(session: URLSession) {
-        self.session = session
+    init(weatherSession: URLSession, imageWeatherSession: URLSession) {
+        self.weatherSession = weatherSession
+        self.imageWeatherSession = imageWeatherSession
     }
     
-    private func createWeatherRequest() -> URLRequest {
-        var request = URLRequest(url: WeatherService.weatherUrl)
-        request.httpMethod = "GET"
+    private func createWeatherRequest(city: String) -> URLRequest {
+        let city = "?q=\(city)"
+        let units = "&units=metric"
+        let weatherURL = URL(string: WeatherService.weatherBaseUrl + city + units + keyWeatherAPI)!
         
-        let body = "?q=Bordeaux&units=metric"
-        request.httpBody = body.data(using: .utf8)
-        
-        return request
+        return URLRequest(url: weatherURL)
     }
     
-    func getWeather(callback: @escaping (Bool, Weather?) -> Void) {
-        let request = createWeatherRequest()
+    
+    func getWeather(city: String, callback: @escaping (Bool, Weather?, Data?) -> Void) {
+        let request = createWeatherRequest(city: city)
         
         task?.cancel()
-        task = session.dataTask(with: request) { (data, response, error) in
+        task = weatherSession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
-                    callback(false, nil)
+                    callback(false, nil, nil)
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    callback(false, nil)
+                    callback(false, nil, nil)
                     return
                 }
                 
                 guard let responseJSON = try? JSONDecoder().decode(Weather.self, from: data) else {
-                    callback(false, nil)
+                    callback(false, nil, nil)
                     return
                 }
                 
-                let weather = responseJSON
-                callback(true, weather)
+                self.getImage(icon: responseJSON.weather[0].icon, completionHandler: { (data) in
+                    guard let data = data else {
+                        callback(false, nil, nil)
+                        return
+                    }
+                    let weather = responseJSON
+                    callback(true, weather, data)
+                })
             }
         }
         task?.resume()
+    }
+    
+    private func getImage(icon: String, completionHandler: @escaping (Data?) -> Void) {
+        let iconUrl = URL(string: WeatherService.iconWeatherUrl + icon + "@2x.png")!
+
+        let task = imageWeatherSession.dataTask(with: iconUrl) { (data, response, error) in
+            DispatchQueue.main.async {
+                guard let data = data, error == nil else {
+                    return
+                }
+                
+                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                    return
+                }
+                completionHandler(data)
+            }
+        }
+        task.resume()
     }
     
 }

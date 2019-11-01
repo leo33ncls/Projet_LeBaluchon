@@ -13,14 +13,17 @@ class WeatherServiceTestCase: XCTestCase {
     
     func testGetWeatherShouldPostFailedCallbackIfError() {
         // Given
-        let weatherService = WeatherService(session: URLSessionFake(data: nil, response: nil, error: FakeResponseData.error))
+        let weatherService = WeatherService(
+            weatherSession: URLSessionFake(data: nil, response: nil, error: FakeResponseData.error),
+            imageWeatherSession: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        weatherService.getWeather() { (success, weather) in
+        weatherService.getWeather(city: "Bordeaux") { (success, weather, data) in
             // Then
             XCTAssertFalse(success)
             XCTAssertNil(weather)
+            XCTAssertNil(data)
             expectation.fulfill()
         }
         
@@ -29,14 +32,17 @@ class WeatherServiceTestCase: XCTestCase {
     
     func testGetWeatherShouldPostFailedCallbackIfNoData() {
         // Given
-        let weatherService = WeatherService(session: URLSessionFake(data: nil, response: nil, error: nil))
+        let weatherService = WeatherService(
+            weatherSession: URLSessionFake(data: nil, response: nil, error: nil),
+            imageWeatherSession: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        weatherService.getWeather { (success, weather) in
+        weatherService.getWeather(city: "Bordeaux") { (success, weather, data) in
             // Then
             XCTAssertFalse(success)
             XCTAssertNil(weather)
+            XCTAssertNil(data)
             expectation.fulfill()
         }
         
@@ -45,14 +51,17 @@ class WeatherServiceTestCase: XCTestCase {
     
     func testGetWeatherShouldPostFailedCallbackIfIncorrectResponse() {
         // Given
-        let weatherService = WeatherService(session: URLSessionFake(data: FakeResponseData.weatherCorrectData, response: FakeResponseData.responseKO, error: nil))
+        let weatherService = WeatherService(
+            weatherSession: URLSessionFake(data: FakeResponseData.weatherCorrectData, response: FakeResponseData.responseKO, error: nil),
+            imageWeatherSession: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        weatherService.getWeather { (success, weather) in
+        weatherService.getWeather(city: "Bordeaux") { (success, weather, data) in
             // Then
             XCTAssertFalse(success)
             XCTAssertNil(weather)
+            XCTAssertNil(data)
             expectation.fulfill()
         }
         
@@ -62,14 +71,17 @@ class WeatherServiceTestCase: XCTestCase {
     
     func testGetWeatherShouldPostFailedCallbackIfIncorrectData() {
         // Given
-        let weatherService = WeatherService(session: URLSessionFake(data: FakeResponseData.incorrectData, response: FakeResponseData.responseOK, error: nil))
+        let weatherService = WeatherService(
+            weatherSession: URLSessionFake(data: FakeResponseData.incorrectData, response: FakeResponseData.responseOK, error: nil),
+            imageWeatherSession: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        weatherService.getWeather { (success, weather) in
+        weatherService.getWeather(city: "Bordeaux") { (success, weather, data) in
             // Then
             XCTAssertFalse(success)
             XCTAssertNil(weather)
+            XCTAssertNil(data)
             expectation.fulfill()
         }
         
@@ -78,11 +90,13 @@ class WeatherServiceTestCase: XCTestCase {
     
     func testGetWeatherShouldPostSuccessCallbackIfNoErrorAndCorrectData() {
         // Given
-        let weatherService = WeatherService(session: URLSessionFake(data: FakeResponseData.weatherCorrectData, response: FakeResponseData.responseOK, error: nil))
+        let weatherService = WeatherService(
+            weatherSession: URLSessionFake(data: FakeResponseData.weatherCorrectData, response: FakeResponseData.responseOK, error: nil),
+            imageWeatherSession: URLSessionFake(data: FakeResponseData.imageData, response: FakeResponseData.responseOK, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        weatherService.getWeather { (success, weather) in
+        weatherService.getWeather(city: "Bordeaux") { (success, weather, data) in
             // Then
             let temp = 19.32
             let weatherDescription = "overcast clouds"
@@ -92,6 +106,7 @@ class WeatherServiceTestCase: XCTestCase {
             
             XCTAssertTrue(success)
             XCTAssertNotNil(weather)
+            XCTAssertNotNil(data)
             
             XCTAssertEqual(temp, weather?.main.temp)
             XCTAssertEqual(weatherDescription, weather?.weather[0].weatherDescription)
