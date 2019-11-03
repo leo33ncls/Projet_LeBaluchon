@@ -25,6 +25,7 @@ class ParameterViewController: UIViewController {
         
         let languageIndex = languagePickerView.selectedRow(inComponent: 0)
         let language = languages[languageIndex].code
+        UserDefaults.standard.set(languageIndex, forKey: "languageIndex")
         UserDefaults.standard.set(language, forKey: "language")
         
         let cityIndex = cityPickerView.selectedRow(inComponent: 0)

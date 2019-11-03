@@ -19,6 +19,9 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var secondTemperatureLabel: UILabel!
     @IBOutlet weak var secondWeatherIconImageView: UIImageView!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var refreshButton: CustomButton!
+    
     var city = "New York"
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,17 +29,21 @@ class WeatherViewController: UIViewController {
         
         city = UserDefaults.standard.string(forKey: "city") ?? "New York"
         
+        toggleActivityIndicator(shown: false)
         showFirstWeather()
         showSecondWeather(city: city)
     }
     
     @IBAction func pressedRefreshButton(_ sender: UIButton) {
+        toggleActivityIndicator(shown: true)
         showFirstWeather()
         showSecondWeather(city: city)
     }
     
     private func showFirstWeather() {
         WeatherService.shared.getWeather(city: "Bordeaux") { (success, weather, icon) in
+            self.toggleActivityIndicator(shown: false)
+            
             if success, let weather = weather, let iconWeather = icon {
                 self.cityNameLabel.text = weather.name
                 self.tempLabel.text = String(weather.main.temp) + " °C"
@@ -50,6 +57,8 @@ class WeatherViewController: UIViewController {
     
     private func showSecondWeather(city: String) {
         WeatherService.shared.getWeather(city: city) { (success, weather, icon) in
+            self.toggleActivityIndicator(shown: false)
+            
             if success, let weather = weather, let iconWeather = icon {
                 self.secondCityNameLabel.text = weather.name
                 self.secondTemperatureLabel.text = String(weather.main.temp) + " °C"
@@ -59,6 +68,11 @@ class WeatherViewController: UIViewController {
                 self.showAlert(title: "Erreur", message: "Une erreur est survenue!")
             }
         }
+    }
+    
+    private func toggleActivityIndicator(shown: Bool) {
+        refreshButton.isHidden = shown
+        activityIndicator.isHidden = !shown
     }
     
     private func showAlert(title: String, message: String) {

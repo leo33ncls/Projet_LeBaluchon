@@ -11,12 +11,15 @@ import UIKit
 class ExchangeRateViewController: UIViewController {
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var convertedAmountLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var convertButton: CustomButton!
     
     var targetCurrency = "USD"
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        toggleActivityIndicator(shown: false)
         targetCurrency = UserDefaults.standard.string(forKey: "currency") ?? "USD"
         convertedAmountLabel.text = "Montant en" + showCurrencySymbol()
     }
@@ -26,8 +29,11 @@ class ExchangeRateViewController: UIViewController {
         
         guard let amountTC = amountToConvert else { return showAlert(message: "Veuillez entrer un montant!") }
         guard let amount = Double(amountTC) else { return showAlert(message: "Entrez un chiffre!") }
+        toggleActivityIndicator(shown: true)
         
         ExchangeService.shared.getExchange(targetCurrency: targetCurrency) { (success, exchange) in
+            self.toggleActivityIndicator(shown: false)
+            
             if success, let exchange = exchange {
                 guard let exchangeRate = exchange.rates[self.targetCurrency] else { return self.showAlert(message: "Devise Incorrect")}
                 let convertedAmount = amount * exchangeRate
@@ -46,6 +52,11 @@ class ExchangeRateViewController: UIViewController {
         default:
             return "$"
         }
+    }
+    
+    private func toggleActivityIndicator(shown: Bool) {
+        convertButton.isHidden = shown
+        activityIndicator.isHidden = !shown
     }
     
     private func showAlert(message: String) {

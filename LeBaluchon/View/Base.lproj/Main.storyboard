@@ -51,8 +51,26 @@
                                     <action selector="getTranslation:" destination="6eA-Y7-Zn7" eventType="touchUpInside" id="IKY-iD-TXY"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="adS-ap-fTk">
+                                <rect key="frame" x="177" y="520" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Traduction en Anglais" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngs-6l-lF3">
+                                <rect key="frame" x="16" y="240" width="343" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Français" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qdQ-DT-Lt1">
+                                <rect key="frame" x="16" y="58" width="343" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.36078431370000003" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.32549019610000002" green="0.54117647059999996" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="qMD-Fz-bZA"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="2jg-69-lrb" appends="YES" id="gJ5-z7-DPd"/>
@@ -60,8 +78,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Traduction" id="aKK-U4-hh0"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="adS-ap-fTk" id="WCn-wc-J9a"/>
+                        <outlet property="languageTranslationLabel" destination="ngs-6l-lF3" id="2x1-51-Z2f"/>
                         <outlet property="textToTranslateTextView" destination="Qdm-oD-rYE" id="qMi-Jn-v8y"/>
                         <outlet property="textTranslatedTextView" destination="AM4-8F-msh" id="49n-HE-hTs"/>
+                        <outlet property="translateButton" destination="ll7-bZ-Cte" id="K7R-8a-dii"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2h-KM-HIK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -71,7 +92,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="273" y="-76"/>
+            <point key="canvasLocation" x="272.80000000000001" y="-76.011994002998506"/>
         </scene>
         <!--Météo-->
         <scene sceneID="cEo-if-Rfg">
@@ -103,7 +124,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Température" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjb-SR-mmd">
-                                        <rect key="frame" x="8" y="82" width="174" height="80"/>
+                                        <rect key="frame" x="8" y="82" width="227" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="pT8-YM-jhb"/>
                                         </constraints>
@@ -134,7 +155,7 @@
                                     <constraint firstAttribute="trailing" secondItem="esJ-HD-JzI" secondAttribute="trailing" constant="16" id="BG5-zZ-XqP"/>
                                     <constraint firstItem="KxO-pE-Nc6" firstAttribute="top" secondItem="IvR-Hg-sO0" secondAttribute="bottom" constant="10" id="Bhp-zb-xLP"/>
                                     <constraint firstItem="gjb-SR-mmd" firstAttribute="leading" secondItem="qq5-Oj-ZAt" secondAttribute="leading" constant="8" id="Pq7-Xb-eiS"/>
-                                    <constraint firstItem="KxO-pE-Nc6" firstAttribute="leading" secondItem="gjb-SR-mmd" secondAttribute="trailing" constant="69" id="SR5-qb-jph"/>
+                                    <constraint firstItem="KxO-pE-Nc6" firstAttribute="leading" secondItem="gjb-SR-mmd" secondAttribute="trailing" constant="16" id="SR5-qb-jph"/>
                                     <constraint firstItem="gjb-SR-mmd" firstAttribute="top" secondItem="IvR-Hg-sO0" secondAttribute="bottom" constant="10" id="Zl9-gn-UEs"/>
                                     <constraint firstAttribute="height" constant="220" id="gRY-b7-6PM"/>
                                     <constraint firstAttribute="trailing" secondItem="IvR-Hg-sO0" secondAttribute="trailing" constant="16" id="jZQ-y2-zsj"/>
@@ -205,6 +226,10 @@
                                     <action selector="pressedRefreshButton:" destination="G7s-Bt-vfq" eventType="touchUpInside" id="VjU-en-5Dq"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="sfA-a8-eWy">
+                                <rect key="frame" x="177" y="564" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.32549019610000002" green="0.54117647059999996" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -222,7 +247,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Météo" id="5ds-U3-wJm"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="sfA-a8-eWy" id="svE-I5-9M2"/>
                         <outlet property="cityNameLabel" destination="iMD-G6-Jc4" id="JAo-0a-XOR"/>
+                        <outlet property="refreshButton" destination="axE-Ud-Sc8" id="VwL-a7-Jei"/>
                         <outlet property="secondCityNameLabel" destination="esJ-HD-JzI" id="1cF-m4-lLv"/>
                         <outlet property="secondTemperatureLabel" destination="gjb-SR-mmd" id="LLQ-bg-JED"/>
                         <outlet property="secondWeatherDescriptionLabel" destination="IvR-Hg-sO0" id="hTQ-Qb-tqr"/>
@@ -313,7 +340,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.44790956331827464" green="0.72944140812218783" blue="0.86193287370000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.66274509800000003" green="0.80392156859999997" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="Nnw-pT-OaJ"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Paramètres" id="DZF-R4-tX0"/>
@@ -385,6 +412,10 @@
                                 <color key="textColor" red="0.0" green="0.36078431370000003" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="eiY-sW-DwK">
+                                <rect key="frame" x="177" y="540" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.32549019610000002" green="0.54117647059999996" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="y7B-da-gUX"/>
@@ -394,7 +425,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Change" id="2L6-MK-7fA"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="eiY-sW-DwK" id="hpg-Sz-FDW"/>
                         <outlet property="amountTextField" destination="qxn-DU-w9y" id="edZ-fi-OFj"/>
+                        <outlet property="convertButton" destination="J7H-sw-yDw" id="ixq-tp-JnD"/>
                         <outlet property="convertedAmountLabel" destination="Rfr-Ou-Qti" id="sby-Xr-uqV"/>
                     </connections>
                 </viewController>
