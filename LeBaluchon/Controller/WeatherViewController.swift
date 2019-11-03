@@ -19,44 +19,51 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var secondTemperatureLabel: UILabel!
     @IBOutlet weak var secondWeatherIconImageView: UIImageView!
     
+    var city = "New York"
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        WeatherService.shared.getWeather(city: "Bordeaux") { (success, weather, data) in
-            if success, let weather = weather, let iconWeather = data {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        city = UserDefaults.standard.string(forKey: "city") ?? "New York"
+        
+        showFirstWeather()
+        showSecondWeather(city: city)
+    }
+    
+    @IBAction func pressedRefreshButton(_ sender: UIButton) {
+        showFirstWeather()
+        showSecondWeather(city: city)
+    }
+    
+    private func showFirstWeather() {
+        WeatherService.shared.getWeather(city: "Bordeaux") { (success, weather, icon) in
+            if success, let weather = weather, let iconWeather = icon {
                 self.cityNameLabel.text = weather.name
                 self.tempLabel.text = String(weather.main.temp) + " °C"
                 self.weatherDescriptionLabel.text = weather.weather[0].weatherDescription
                 self.weatherIconImageView.image = UIImage(data: iconWeather)
             } else {
-                let alertVC = UIAlertController(title: "Erreur", message: "Requete Invalide", preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.showAlert(title: "Erreur", message: "Une erreur est survenue!")
             }
         }
-        
-        WeatherService.shared.getWeather(city: "Paris") { (success, weather, data) in
-            if success, let weather = weather, let iconWeather = data {
+    }
+    
+    private func showSecondWeather(city: String) {
+        WeatherService.shared.getWeather(city: city) { (success, weather, icon) in
+            if success, let weather = weather, let iconWeather = icon {
                 self.secondCityNameLabel.text = weather.name
-                self.secondWeatherDescriptionLabel.text = weather.weather[0].weatherDescription
                 self.secondTemperatureLabel.text = String(weather.main.temp) + " °C"
+                self.secondWeatherDescriptionLabel.text = weather.weather[0].weatherDescription
                 self.secondWeatherIconImageView.image = UIImage(data: iconWeather)
-            }
-        }
-    }
-    
-    @IBAction func pressedRefreshButton(_ sender: UIButton) {
-        WeatherService.shared.getWeather(city: "Bordeaux") { (success, weather, data) in
-            if success, let weather = weather, let iconWeather = data {
-                self.cityNameLabel.text = weather.name
-                self.tempLabel.text = String(weather.main.temp)
-                self.weatherDescriptionLabel.text = weather.weather[0].weatherDescription
-                self.weatherIconImageView.image = UIImage(data: iconWeather)
             } else {
-                let alertVC = UIAlertController(title: "Erreur", message: "Requete Invalide", preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.showAlert(title: "Erreur", message: "Une erreur est survenue!")
             }
         }
     }
     
-    
+    private func showAlert(title: String, message: String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
 }

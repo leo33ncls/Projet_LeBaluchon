@@ -10,6 +10,7 @@
 import XCTest
 
 class ExchangeServiceTestCase: XCTestCase {
+    let targetCurrency = "USD"
     
     func testGetExchangeShouldPostFailedCallbackIfError() {
         // Given
@@ -17,7 +18,7 @@ class ExchangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        exchangeService.getExchange { (success, exchange) in
+        exchangeService.getExchange(targetCurrency: targetCurrency) { (success, exchange) in
             //Then
             XCTAssertFalse(success)
             XCTAssertNil(exchange)
@@ -33,7 +34,7 @@ class ExchangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        exchangeService.getExchange { (success, exchange) in
+        exchangeService.getExchange(targetCurrency: targetCurrency) { (success, exchange) in
             //Then
             XCTAssertFalse(success)
             XCTAssertNil(exchange)
@@ -49,7 +50,7 @@ class ExchangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        exchangeService.getExchange { (success, exchange) in
+        exchangeService.getExchange(targetCurrency: targetCurrency) { (success, exchange) in
             //Then
             XCTAssertFalse(success)
             XCTAssertNil(exchange)
@@ -65,7 +66,7 @@ class ExchangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        exchangeService.getExchange { (success, exchange) in
+        exchangeService.getExchange(targetCurrency: targetCurrency) { (success, exchange) in
             //Then
             XCTAssertFalse(success)
             XCTAssertNil(exchange)
@@ -81,7 +82,7 @@ class ExchangeServiceTestCase: XCTestCase {
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        exchangeService.getExchange { (success, exchange) in
+        exchangeService.getExchange(targetCurrency: targetCurrency) { (success, exchange) in
             //Then
             let success = true
             let timestamp = 1570627447

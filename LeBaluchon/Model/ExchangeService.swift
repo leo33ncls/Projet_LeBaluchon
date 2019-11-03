@@ -12,7 +12,7 @@ class ExchangeService {
     static var shared = ExchangeService()
     private init() {}
     
-    private static let exchangeURL = "http://data.fixer.io/api/latest"
+    private static let exchangeBaseURL = "http://data.fixer.io/api/latest"
     
     private var task: URLSessionDataTask?
     
@@ -22,14 +22,15 @@ class ExchangeService {
         self.session = session
     }
     
-    private func createExchangeUrl() -> URL {
-        let parameters = "&base=EUR&symbols=USD"
+    private func createExchangeUrl(baseCurrency: String, targetCurrency: String) -> URL {
+        var exchangeURL = URLComponents(string: ExchangeService.exchangeBaseURL)!
+        exchangeURL.queryItems = [URLQueryItem(name: "base", value: baseCurrency), URLQueryItem(name: "symbols", value: targetCurrency), URLQueryItem(name: "access_key", value: keyExchangeAPI)]
         
-        return URL(string: ExchangeService.exchangeURL + keyExchangeAPI + parameters)!
+        return exchangeURL.url!
     }
     
-    func getExchange(callback: @escaping (Bool, ExchangeRate?) -> Void) {
-        let url = createExchangeUrl()
+    func getExchange(targetCurrency: String, callback: @escaping (Bool, ExchangeRate?) -> Void) {
+        let url = createExchangeUrl(baseCurrency: "EUR", targetCurrency: targetCurrency)
         
         task?.cancel()
         task = session.dataTask(with: url) { (data, response, error) in
@@ -44,13 +45,12 @@ class ExchangeService {
                     return
                 }
                 
-                guard let responseJSON = try? JSONDecoder().decode(ExchangeRate.self, from: data) else {
+                guard let exchangeResponseJSON = try? JSONDecoder().decode(ExchangeRate.self, from: data) else {
                     callback(false, nil)
                     return
                 }
                 
-                let exchange = responseJSON
-                callback(true, exchange)
+                callback(true, exchangeResponseJSON)
             }
         }
         task?.resume()

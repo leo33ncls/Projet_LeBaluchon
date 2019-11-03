@@ -26,18 +26,16 @@ class WeatherService {
     }
     
     private func createWeatherRequest(city: String) -> URLRequest {
-        let city = "?q=\(city)"
-        let units = "&units=metric"
-        let weatherURL = URL(string: WeatherService.weatherBaseUrl + city + units + keyWeatherAPI)!
+        var weatherURL = URLComponents(string: WeatherService.weatherBaseUrl)!
+        weatherURL.queryItems = [URLQueryItem(name: "q", value: city), URLQueryItem(name: "units", value: "metric"), URLQueryItem(name: "lang", value: "fr"), URLQueryItem(name: "APPID", value: keyWeatherAPI)]
         
-        return URLRequest(url: weatherURL)
+        return URLRequest(url: weatherURL.url!)
     }
     
     
     func getWeather(city: String, callback: @escaping (Bool, Weather?, Data?) -> Void) {
         let request = createWeatherRequest(city: city)
         
-        task?.cancel()
         task = weatherSession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
@@ -50,18 +48,18 @@ class WeatherService {
                     return
                 }
                 
-                guard let responseJSON = try? JSONDecoder().decode(Weather.self, from: data) else {
+                guard let weatherResponseJSON = try? JSONDecoder().decode(Weather.self, from: data) else {
                     callback(false, nil, nil)
                     return
                 }
                 
-                self.getImage(icon: responseJSON.weather[0].icon, completionHandler: { (data) in
-                    guard let data = data else {
+                self.getImage(icon: weatherResponseJSON.weather[0].icon, completionHandler: { (data) in
+                    guard let iconData = data else {
                         callback(false, nil, nil)
                         return
                     }
-                    let weather = responseJSON
-                    callback(true, weather, data)
+                    
+                    callback(true, weatherResponseJSON, iconData)
                 })
             }
         }

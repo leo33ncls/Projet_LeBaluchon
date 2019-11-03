@@ -12,7 +12,7 @@ class TranslationService {
     static var shared = TranslationService()
     private init() {}
     
-    private static let translationURL = URL(string: "https://translation.googleapis.com/language/translate/v2" + keyTranslationAPI)!
+    private static let translationBaseURL = "https://translation.googleapis.com/language/translate/v2"
     
     private var task: URLSessionDataTask?
     
@@ -22,14 +22,17 @@ class TranslationService {
         self.session = session
     }
     
-    private func createTranslationRequest(textToTranslate: String) -> URLRequest {
-        var request = URLRequest(url: TranslationService.translationURL)
+    private func createTranslationRequest(sourceLanguage: String,
+                                          targetLanguage: String,
+                                          textToTranslate: String) -> URLRequest {
+        
+        var urlComponents = URLComponents(string: TranslationService.translationBaseURL)!
+        urlComponents.queryItems = [URLQueryItem(name: "key", value: keyTranslationAPI)]
+        
+        var request = URLRequest(url: urlComponents.url!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let sourceLanguage = "fr"
-        let targetLanguage = "en"
-        
+       
         let body = """
         {
         "q": "\(textToTranslate)",
@@ -38,14 +41,13 @@ class TranslationService {
         "format": "text"
         }
         """
-        
         request.httpBody = body.data(using: .utf8)
         
         return request
     }
     
-    func getTranslation(textToTranslate: String, callback: @escaping (Bool, Translation?) -> Void) {
-        let request = createTranslationRequest(textToTranslate: textToTranslate)
+    func getTranslation(targetLanguage: String, textToTranslate: String, callback: @escaping (Bool, Translation?) -> Void) {
+        let request = createTranslationRequest(sourceLanguage: "fr", targetLanguage: targetLanguage, textToTranslate: textToTranslate)
         
         task?.cancel()
         task = session.dataTask(with: request) { (data, response, error) in
@@ -60,13 +62,12 @@ class TranslationService {
                     return
                 }
                 
-                guard let responseJSON = try? JSONDecoder().decode(Translation.self, from: data) else {
+                guard let translationResponseJSON = try? JSONDecoder().decode(Translation.self, from: data) else {
                     callback(false, nil)
                     return
                 }
                 
-                let translation = responseJSON
-                callback(true, translation)
+                callback(true, translationResponseJSON)
             }
         }
         task?.resume()

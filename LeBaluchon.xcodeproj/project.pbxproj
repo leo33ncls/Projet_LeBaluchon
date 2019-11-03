@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		281F12E1236CFFA500A09B82 /* ParameterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281F12E0236CFFA500A09B82 /* ParameterViewController.swift */; };
+		281F12E3236D009C00A09B82 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281F12E2236D009C00A09B82 /* Parameters.swift */; };
+		281F12E5236E67AE00A09B82 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281F12E4236E67AE00A09B82 /* CustomButton.swift */; };
+		281F12E7236F61C300A09B82 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281F12E6236F61C300A09B82 /* CustomView.swift */; };
 		28C75CDE234D1AB800FE2B8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C75CDD234D1AB800FE2B8F /* AppDelegate.swift */; };
 		28C75CE3234D1AB800FE2B8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28C75CE1234D1AB800FE2B8F /* Main.storyboard */; };
 		28C75CE5234D1ABE00FE2B8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28C75CE4234D1ABE00FE2B8F /* Assets.xcassets */; };
@@ -42,6 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		281F12E0236CFFA500A09B82 /* ParameterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterViewController.swift; sourceTree = "<group>"; };
+		281F12E2236D009C00A09B82 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		281F12E4236E67AE00A09B82 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		281F12E6236F61C300A09B82 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		28C75CDA234D1AB800FE2B8F /* LeBaluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeBaluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28C75CDD234D1AB800FE2B8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		28C75CE2234D1AB800FE2B8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -129,6 +137,7 @@
 				28FC1CE2235F50DD002D6A27 /* Translation.swift */,
 				28C84BB52368952F00E910D3 /* WeatherService.swift */,
 				28C84BB723689A5B00E910D3 /* Weather.swift */,
+				281F12E2236D009C00A09B82 /* Parameters.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -138,6 +147,8 @@
 			children = (
 				28C75CE1234D1AB800FE2B8F /* Main.storyboard */,
 				28C75CE6234D1ABE00FE2B8F /* LaunchScreen.storyboard */,
+				281F12E4236E67AE00A09B82 /* CustomButton.swift */,
+				281F12E6236F61C300A09B82 /* CustomView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -148,6 +159,7 @@
 				28C75CEF234D1E6600FE2B8F /* ExchangeRateViewController.swift */,
 				28FC1CE4235F804F002D6A27 /* TranslationViewController.swift */,
 				28C84BBD2368AEEA00E910D3 /* WeatherViewController.swift */,
+				281F12E0236CFFA500A09B82 /* ParameterViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -273,10 +285,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				281F12E7236F61C300A09B82 /* CustomView.swift in Sources */,
 				28C75D14235CCF0600FE2B8F /* ExchangeRate.swift in Sources */,
 				28C84BB62368952F00E910D3 /* WeatherService.swift in Sources */,
+				281F12E3236D009C00A09B82 /* Parameters.swift in Sources */,
 				28FC1CE5235F804F002D6A27 /* TranslationViewController.swift in Sources */,
+				281F12E5236E67AE00A09B82 /* CustomButton.swift in Sources */,
 				28FC1CE7235F8A86002D6A27 /* KeyAPI.swift in Sources */,
+				281F12E1236CFFA500A09B82 /* ParameterViewController.swift in Sources */,
 				28C84BB823689A5B00E910D3 /* Weather.swift in Sources */,
 				28FC1CE1235F501D002D6A27 /* TranslationService.swift in Sources */,
 				28C75CF0234D1E6600FE2B8F /* ExchangeRateViewController.swift in Sources */,

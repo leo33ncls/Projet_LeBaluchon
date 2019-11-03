@@ -12,6 +12,14 @@ class ExchangeRateViewController: UIViewController {
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var convertedAmountLabel: UILabel!
     
+    var targetCurrency = "USD"
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        targetCurrency = UserDefaults.standard.string(forKey: "currency") ?? "USD"
+        convertedAmountLabel.text = "Montant en" + showCurrencySymbol()
+    }
     
     @IBAction func getExchange(_ sender: UIButton) {
         let amountToConvert = amountTextField.text
@@ -19,13 +27,24 @@ class ExchangeRateViewController: UIViewController {
         guard let amountTC = amountToConvert else { return showAlert(message: "Veuillez entrer un montant!") }
         guard let amount = Double(amountTC) else { return showAlert(message: "Entrez un chiffre!") }
         
-        ExchangeService.shared.getExchange { (success, exchange) in
+        ExchangeService.shared.getExchange(targetCurrency: targetCurrency) { (success, exchange) in
             if success, let exchange = exchange {
-                let convertedAmount = amount * exchange.rates["USD"]!
-                self.convertedAmountLabel.text = String(convertedAmount)
+                guard let exchangeRate = exchange.rates[self.targetCurrency] else { return self.showAlert(message: "Devise Incorrect")}
+                let convertedAmount = amount * exchangeRate
+                self.convertedAmountLabel.text = String(convertedAmount) + self.showCurrencySymbol()
             } else {
                 self.showAlert(message: "Requête Invalide!")
             }
+        }
+    }
+    
+    private func showCurrencySymbol() -> String {
+        switch targetCurrency {
+        case "USD": return " $"
+        case "GBP": return " £"
+        case "JPY": return " ¥"
+        default:
+            return "$"
         }
     }
     

@@ -12,16 +12,19 @@ class TranslationViewController: UIViewController {
     @IBOutlet weak var textToTranslateTextView: UITextView!
     @IBOutlet weak var textTranslatedTextView: UITextView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    var targetLanguage = "en"
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        targetLanguage = UserDefaults.standard.string(forKey: "language") ?? "en"
+    }
     
     @IBAction func getTranslation(_ sender: UIButton) {
         let textToTranslate = textToTranslateTextView.text
         
         if let text = textToTranslate {
-            TranslationService.shared.getTranslation(textToTranslate: text) { (success, translation) in
+            TranslationService.shared.getTranslation(targetLanguage: targetLanguage, textToTranslate: text) { (success, translation) in
                 if success, let translation = translation {
                     self.textTranslatedTextView.text = translation.data.translations[0].translatedText
                 } else {
@@ -41,6 +44,7 @@ class TranslationViewController: UIViewController {
 
 }
 
+// MARK: - Keyboard
 extension TranslationViewController: UITextViewDelegate {
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         textToTranslateTextView.resignFirstResponder()
