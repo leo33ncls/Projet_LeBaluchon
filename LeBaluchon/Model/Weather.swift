@@ -5,6 +5,7 @@
 //  Created by Léo NICOLAS on 29/10/2019.
 //  Copyright © 2019 Léo NICOLAS. All rights reserved.
 //
+// swiftlint:disable identifier_name
 
 import Foundation
 
@@ -37,9 +38,9 @@ struct Coord: Codable {
 // MARK: - Main
 struct Main: Codable {
     let temp: Double
-    let pressure, humidity : Int
+    let pressure, humidity: Int
     let tempMin, tempMax: Double
-    
+
     enum CodingKeys: String, CodingKey {
         case temp, pressure, humidity
         case tempMin = "temp_min"
@@ -58,7 +59,7 @@ struct Sys: Codable {
 struct WeatherElement: Codable {
     let id: Int
     let main, weatherDescription, icon: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id, main
         case weatherDescription = "description"

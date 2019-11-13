@@ -14,5 +14,5 @@ struct ExchangeRate: Codable {
     var timestamp: Int
     var base: String
     var date: String
-    var rates: [String : Double]
+    var rates: [String: Double]
 }

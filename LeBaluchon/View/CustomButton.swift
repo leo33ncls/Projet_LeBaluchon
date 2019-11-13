@@ -9,17 +9,17 @@
 import UIKit
 
 class CustomButton: UIButton {
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
     }
-    
+
     private func setUp() {
         titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         layer.bounds.size = CGSize(width: 160, height: 45)
