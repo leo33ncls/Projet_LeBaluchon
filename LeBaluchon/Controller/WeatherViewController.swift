@@ -22,22 +22,18 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var refreshButton: CustomButton!
 
-    var city = "New York"
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        city = UserDefaults.standard.string(forKey: "city") ?? "New York"
-
         toggleActivityIndicator(shown: false)
         showFirstWeather()
-        showSecondWeather(city: city)
+        showSecondWeather(city: ParametersService.city)
     }
 
     @IBAction func pressedRefreshButton(_ sender: UIButton) {
         toggleActivityIndicator(shown: true)
         showFirstWeather()
-        showSecondWeather(city: city)
+        showSecondWeather(city: ParametersService.city)
     }
 
     private func showFirstWeather() {

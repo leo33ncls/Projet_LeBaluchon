@@ -14,25 +14,48 @@ class ParameterViewController: UIViewController {
     @IBOutlet weak var cityPickerView: UIPickerView!
     @IBOutlet weak var currencySegmentedControl: UISegmentedControl!
 
-    @IBAction func saveButton(_ sender: Any) {
-        switch currencySegmentedControl.selectedSegmentIndex {
-        case 0: UserDefaults.standard.set("USD", forKey: "currency")
-        case 1: UserDefaults.standard.set("GBP", forKey: "currency")
-        case 2: UserDefaults.standard.set("JPY", forKey: "currency")
-        default:
-            UserDefaults.standard.set("USD", forKey: "currency")
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        languagePickerView.selectRow(ParametersService.languageIndex, inComponent: 0, animated: true)
+        cityPickerView.selectRow(ParametersService.cityIndex, inComponent: 0, animated: true)
+        currencySegmentedControl.selectedSegmentIndex = ParametersService.currencyIndex
+    }
 
+    @IBAction func saveButton(_ sender: Any) {
+        saveCurrency()
+        saveLanguage()
+        saveCity()
+    }
+
+    private func saveCurrency() {
+        switch currencySegmentedControl.selectedSegmentIndex {
+        case 0:
+            ParametersService.currencyIndex = 0
+            ParametersService.currency = "USD"
+        case 1:
+            ParametersService.currencyIndex = 1
+            ParametersService.currency = "GBP"
+        case 2:
+            ParametersService.currencyIndex = 2
+            ParametersService.currency = "JPY"
+        default:
+            ParametersService.currencyIndex = 0
+            ParametersService.currency = "USD"
+        }
+    }
+
+    private func saveLanguage() {
         let languageIndex = languagePickerView.selectedRow(inComponent: 0)
         let language = Parameters.languages[languageIndex].code
-        UserDefaults.standard.set(languageIndex, forKey: "languageIndex")
-        UserDefaults.standard.set(language, forKey: "language")
+        ParametersService.languageIndex = languageIndex
+        ParametersService.language = language
+    }
 
+    private func saveCity() {
         let cityIndex = cityPickerView.selectedRow(inComponent: 0)
         let city = Parameters.cities[cityIndex]
-        UserDefaults.standard.set(city, forKey: "city")
-
-        UserDefaults.standard.synchronize()
+        ParametersService.cityIndex = cityIndex
+        ParametersService.city = city
     }
 }
 

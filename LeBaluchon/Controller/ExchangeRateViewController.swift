@@ -14,28 +14,25 @@ class ExchangeRateViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var convertButton: CustomButton!
 
-    var targetCurrency = "USD"
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         toggleActivityIndicator(shown: false)
-        targetCurrency = UserDefaults.standard.string(forKey: "currency") ?? "USD"
-        convertedAmountLabel.text = "Montant en" + showCurrencySymbol()
+        convertedAmountLabel.text = "Montant en " + showCurrencySymbol()
     }
 
     @IBAction func getExchange(_ sender: UIButton) {
-        let amountToConvert = amountTextField.text
 
-        guard let amountTC = amountToConvert else { return showAlert(message: "Veuillez entrer un montant!") }
-        guard let amount = Double(amountTC) else { return showAlert(message: "Entrez un chiffre!") }
+        guard let amountToConvert = amountTextField.text else {
+            return showAlert(message: "Veuillez entrer un montant!") }
+        guard let amount = Double(amountToConvert) else { return showAlert(message: "Entrez un chiffre!") }
         toggleActivityIndicator(shown: true)
 
-        ExchangeService.shared.getExchange(targetCurrency: targetCurrency) { (success, exchange) in
+        ExchangeService.shared.getExchange(targetCurrency: ParametersService.currency) { (success, exchange) in
             self.toggleActivityIndicator(shown: false)
 
             if success, let exchange = exchange {
-                guard let exchangeRate = exchange.rates[self.targetCurrency] else {
+                guard let exchangeRate = exchange.rates[ParametersService.currency] else {
                     return self.showAlert(message: "Devise Incorrect") }
                 let convertedAmount = amount * exchangeRate
                 self.convertedAmountLabel.text = String(convertedAmount) + self.showCurrencySymbol()
@@ -46,10 +43,10 @@ class ExchangeRateViewController: UIViewController {
     }
 
     private func showCurrencySymbol() -> String {
-        switch targetCurrency {
-        case "USD": return " $"
-        case "GBP": return " £"
-        case "JPY": return " ¥"
+        switch ParametersService.currency {
+        case "USD": return "$"
+        case "GBP": return "£"
+        case "JPY": return "¥"
         default:
             return " $"
         }
