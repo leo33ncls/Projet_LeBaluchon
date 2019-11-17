@@ -9,6 +9,7 @@
 import Foundation
 
 class ParametersService {
+    // The ParametersService Keys
     struct Keys {
         static let currencyIndex = "currencyIndex"
         static let currency = "currency"
@@ -18,6 +19,7 @@ class ParametersService {
         static let city = "city"
     }
 
+    // The variable which saves the index of the parameter currency
     static var currencyIndex: Int {
         get {
             return UserDefaults.standard.integer(forKey: Keys.currencyIndex)
@@ -27,6 +29,7 @@ class ParametersService {
         }
     }
 
+    // The variable which saves the parameter currency
     static var currency: String {
         get {
             return UserDefaults.standard.string(forKey: Keys.currency) ?? "USD"
@@ -36,6 +39,7 @@ class ParametersService {
         }
     }
 
+    // The variable which saves the index of the parameter language
     static var languageIndex: Int {
         get {
             return UserDefaults.standard.integer(forKey: Keys.languageIndex)
@@ -45,6 +49,7 @@ class ParametersService {
         }
     }
 
+    // The variable which saves the parameter language
     static var language: String {
         get {
             return UserDefaults.standard.string(forKey: Keys.language) ?? "en"
@@ -54,6 +59,7 @@ class ParametersService {
         }
     }
 
+    // The variable which saves the index of the parameter city
     static var cityIndex: Int {
         get {
             return UserDefaults.standard.integer(forKey: Keys.cityIndex)
@@ -63,6 +69,7 @@ class ParametersService {
         }
     }
 
+    // The variable which saves the parameter city
     static var city: String {
         get {
             return UserDefaults.standard.string(forKey: Keys.city) ?? "New York"

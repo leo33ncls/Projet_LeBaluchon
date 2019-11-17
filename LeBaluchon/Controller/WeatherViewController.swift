@@ -9,6 +9,9 @@
 import UIKit
 
 class WeatherViewController: UIViewController {
+
+    //===================
+    // View Properties
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var weatherDescriptionLabel: UILabel!
@@ -22,6 +25,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var refreshButton: CustomButton!
 
+    //===================
+    // View Cycles
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -30,12 +35,20 @@ class WeatherViewController: UIViewController {
         showSecondWeather(city: ParametersService.city)
     }
 
+    //===================
+    // View Actions
+
+    // Action which refreshes the weather
     @IBAction func pressedRefreshButton(_ sender: UIButton) {
         toggleActivityIndicator(shown: true)
         showFirstWeather()
         showSecondWeather(city: ParametersService.city)
     }
 
+    //===================
+    // View Functions
+
+    // Function which gets and displays the first city's weather
     private func showFirstWeather() {
         WeatherService.shared.getWeather(city: "Bordeaux") { (success, weather, icon) in
             self.toggleActivityIndicator(shown: false)
@@ -51,6 +64,7 @@ class WeatherViewController: UIViewController {
         }
     }
 
+     // Function which gets and displays the second city's weather
     private func showSecondWeather(city: String) {
         WeatherService.shared.getWeather(city: city) { (success, weather, icon) in
             self.toggleActivityIndicator(shown: false)
@@ -66,11 +80,13 @@ class WeatherViewController: UIViewController {
         }
     }
 
+     // Function which manages the activityIndicator
     private func toggleActivityIndicator(shown: Bool) {
         refreshButton.isHidden = shown
         activityIndicator.isHidden = !shown
     }
 
+    // Function which shows an alert
     private func showAlert(title: String, message: String) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

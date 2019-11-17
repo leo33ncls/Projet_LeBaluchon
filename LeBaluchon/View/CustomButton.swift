@@ -10,6 +10,8 @@ import UIKit
 
 class CustomButton: UIButton {
 
+    // ===================
+    // Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -20,6 +22,8 @@ class CustomButton: UIButton {
         setUp()
     }
 
+    // ===================
+    // Function which set up a custom button
     private func setUp() {
         titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         layer.bounds.size = CGSize(width: 160, height: 45)

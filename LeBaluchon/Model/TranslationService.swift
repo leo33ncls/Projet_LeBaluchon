@@ -9,6 +9,7 @@
 import Foundation
 
 class TranslationService {
+    // A unique instance of TranslationService
     static var shared = TranslationService()
     private init() {}
 
@@ -18,10 +19,12 @@ class TranslationService {
 
     private var session = URLSession(configuration: .default)
 
+    // An initializer which is used for the unit test
     init(session: URLSession) {
         self.session = session
     }
 
+     // Function which creates an request to get a translation
     private func createTranslationRequest(sourceLanguage: String,
                                           targetLanguage: String,
                                           textToTranslate: String) -> URLRequest {
@@ -46,6 +49,7 @@ class TranslationService {
         return request
     }
 
+    // Function which gets an objet Translation from a response request
     func getTranslation(targetLanguage: String,
                         textToTranslate: String,
                         callback: @escaping (Bool, Translation?) -> Void) {

@@ -9,6 +9,7 @@
 import Foundation
 
 class WeatherService {
+    // A unique instance of WeatherService
     static var shared = WeatherService()
     private init() {}
 
@@ -20,11 +21,13 @@ class WeatherService {
     private var weatherSession = URLSession(configuration: .default)
     private var imageWeatherSession = URLSession(configuration: .default)
 
+    // An initializer which is used for the unit test
     init(weatherSession: URLSession, imageWeatherSession: URLSession) {
         self.weatherSession = weatherSession
         self.imageWeatherSession = imageWeatherSession
     }
 
+    // Function which creates an request to get a weather
     private func createWeatherRequest(city: String) -> URLRequest {
         var weatherURL = URLComponents(string: WeatherService.weatherBaseUrl)!
         weatherURL.queryItems = [URLQueryItem(name: "q", value: city),
@@ -35,6 +38,7 @@ class WeatherService {
         return URLRequest(url: weatherURL.url!)
     }
 
+    // Function which gets an objet Weather from a response request
     func getWeather(city: String, callback: @escaping (Bool, Weather?, Data?) -> Void) {
         let request = createWeatherRequest(city: city)
 
@@ -68,6 +72,7 @@ class WeatherService {
         task?.resume()
     }
 
+    // Function which gets an weather icon from a response request
     private func getImage(icon: String, completionHandler: @escaping (Data?) -> Void) {
         let iconUrl = URL(string: WeatherService.iconWeatherUrl + icon + "@2x.png")!
 

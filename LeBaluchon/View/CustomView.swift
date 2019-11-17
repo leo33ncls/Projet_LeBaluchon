@@ -10,6 +10,8 @@ import UIKit
 
 class CustomView: UIView {
 
+    // ===================
+    // Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -20,6 +22,8 @@ class CustomView: UIView {
         setUp()
     }
 
+    // ===================
+    // Function which set up a custom view
     private func setUp() {
         layer.cornerRadius = 10
     }

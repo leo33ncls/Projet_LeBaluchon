@@ -9,6 +9,7 @@
 import Foundation
 
 class ExchangeService {
+    // A unique instance of ExchangeService
     static var shared = ExchangeService()
     private init() {}
 
@@ -18,10 +19,12 @@ class ExchangeService {
 
     private var session = URLSession(configuration: .default)
 
+    // An initializer which is used for the unit test
     init(session: URLSession) {
         self.session = session
     }
 
+    // Function which creates an Url with parameters
     private func createExchangeUrl(baseCurrency: String, targetCurrency: String) -> URL {
         var exchangeURL = URLComponents(string: ExchangeService.exchangeBaseURL)!
         exchangeURL.queryItems = [URLQueryItem(name: "base", value: baseCurrency),
@@ -31,6 +34,7 @@ class ExchangeService {
         return exchangeURL.url!
     }
 
+    // Function which gets an objet ExchangeRate from a response request
     func getExchange(targetCurrency: String, callback: @escaping (Bool, ExchangeRate?) -> Void) {
         let url = createExchangeUrl(baseCurrency: "EUR", targetCurrency: targetCurrency)
 

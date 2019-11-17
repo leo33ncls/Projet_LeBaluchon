@@ -9,12 +9,17 @@
 import UIKit
 
 class TranslationViewController: UIViewController {
+
+    //===================
+    // View Properties
     @IBOutlet weak var languageTranslationLabel: UILabel!
     @IBOutlet weak var textToTranslateTextView: UITextView!
     @IBOutlet weak var textTranslatedTextView: UITextView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var translateButton: CustomButton!
 
+    //===================
+    // View Cycles
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -23,6 +28,10 @@ class TranslationViewController: UIViewController {
         "Traduction en \(Parameters.languages[ParametersService.languageIndex].language)"
     }
 
+    //===================
+    // View Actions
+
+    // An action which gets and displays the translation
     @IBAction func getTranslation(_ sender: UIButton) {
         toggleActivityIndicator(shown: true)
 
@@ -42,11 +51,16 @@ class TranslationViewController: UIViewController {
         }
     }
 
+    //===================
+    // View Functions
+
+     // Function which manages the activityIndicator
     private func toggleActivityIndicator(shown: Bool) {
         translateButton.isHidden = shown
         activityIndicator.isHidden = !shown
     }
 
+    // Function which shows an alert
     private func showAlert(title: String, message: String) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

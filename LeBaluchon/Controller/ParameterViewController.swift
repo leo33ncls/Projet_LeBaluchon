@@ -10,23 +10,37 @@ import UIKit
 
 class ParameterViewController: UIViewController {
 
+    //===================
+    // View Properties
     @IBOutlet weak var languagePickerView: UIPickerView!
     @IBOutlet weak var cityPickerView: UIPickerView!
     @IBOutlet weak var currencySegmentedControl: UISegmentedControl!
 
+    //===================
+    // View Cycles
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        // Display the right parameters
         languagePickerView.selectRow(ParametersService.languageIndex, inComponent: 0, animated: true)
         cityPickerView.selectRow(ParametersService.cityIndex, inComponent: 0, animated: true)
         currencySegmentedControl.selectedSegmentIndex = ParametersService.currencyIndex
     }
 
+    //===================
+    // View Actions
+
+    // Action which saves the three parameters when the button is pressed
     @IBAction func saveButton(_ sender: Any) {
         saveCurrency()
         saveLanguage()
         saveCity()
     }
 
+    //===================
+    // View Functions
+
+    // Function which saves the parameter currency
     private func saveCurrency() {
         switch currencySegmentedControl.selectedSegmentIndex {
         case 0:
@@ -44,6 +58,7 @@ class ParameterViewController: UIViewController {
         }
     }
 
+    // Function which saves the parameter language
     private func saveLanguage() {
         let languageIndex = languagePickerView.selectedRow(inComponent: 0)
         let language = Parameters.languages[languageIndex].code
@@ -51,6 +66,7 @@ class ParameterViewController: UIViewController {
         ParametersService.language = language
     }
 
+    // Function which saves the parameter city
     private func saveCity() {
         let cityIndex = cityPickerView.selectedRow(inComponent: 0)
         let city = Parameters.cities[cityIndex]

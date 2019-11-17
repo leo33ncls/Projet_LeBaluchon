@@ -9,6 +9,7 @@
 import Foundation
 
 class Parameters {
+    // An array of languages for the parameters
     static let languages: [(language: String, code: String)] = [("Anglais", "en"),
                                                          ("Allemand", "de"),
                                                          ("Chinois", "zh"),
@@ -18,6 +19,7 @@ class Parameters {
                                                          ("Néerlandais", "nl"),
                                                          ("Russe", "ru")]
 
+    // An array of cities for the parameters
     static let cities = ["New York",
                   "Berlin",
                   "Beijing",

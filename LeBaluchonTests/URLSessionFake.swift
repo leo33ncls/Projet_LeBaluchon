@@ -8,6 +8,7 @@
 
 import Foundation
 
+// A Class that doubles the URLSession class
 class URLSessionFake: URLSession {
     var data: Data?
     var response: URLResponse?
@@ -40,6 +41,7 @@ class URLSessionFake: URLSession {
     }
 }
 
+// A Class that doubles the URLSessionDataTask
 class URLSessionDataTaskFake: URLSessionDataTask {
     var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
 
