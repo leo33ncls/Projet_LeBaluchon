@@ -21,10 +21,7 @@ class ParameterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        // Display the right parameters
-        languagePickerView.selectRow(ParametersService.languageIndex, inComponent: 0, animated: true)
-        cityPickerView.selectRow(ParametersService.cityIndex, inComponent: 0, animated: true)
-        currencySegmentedControl.selectedSegmentIndex = ParametersService.currencyIndex
+        displayRightParameters()
     }
 
     //===================
@@ -39,6 +36,13 @@ class ParameterViewController: UIViewController {
 
     //===================
     // View Functions
+
+    // Function which displays the right parameters
+    private func displayRightParameters() {
+        languagePickerView.selectRow(ParametersService.languageIndex, inComponent: 0, animated: true)
+        cityPickerView.selectRow(ParametersService.cityIndex, inComponent: 0, animated: true)
+        currencySegmentedControl.selectedSegmentIndex = ParametersService.currencyIndex
+    }
 
     // Function which saves the parameter currency
     private func saveCurrency() {

@@ -35,7 +35,8 @@ class ExchangeRateViewController: UIViewController {
         guard let amountString = amountTextField.text else {
             return showAlert(message: "Veuillez entrer un montant!") }
 
-        guard let amountToConvert = Double(amountString) else { return showAlert(message: "Entrez un nombre!") }
+        guard let amountToConvert = Double(amountString) else {
+            return showAlert(message: "Entrez un nombre!") }
         toggleActivityIndicator(shown: true)
 
         ExchangeService.shared.getExchange(targetCurrency: ParametersService.currency) { (success, exchange) in
@@ -44,9 +45,8 @@ class ExchangeRateViewController: UIViewController {
             if success, let exchange = exchange {
                 guard let exchangeRate = exchange.rates[ParametersService.currency] else {
                     return self.showAlert(message: "Devise Incorrect") }
-                let convertedAmount = amountToConvert * exchangeRate
-                let roundedAmount = Double(round(100*convertedAmount)/100)
-                self.convertedAmountLabel.text = String(roundedAmount) + self.showCurrencySymbol()
+                let convertedAmount = ExchangeService.convertAmount(amount: amountToConvert, exchangeRate: exchangeRate)
+                self.convertedAmountLabel.text = String(convertedAmount) + self.showCurrencySymbol()
             } else {
                 self.showAlert(message: "Requête Invalide!")
             }

@@ -11,10 +11,18 @@ import XCTest
 
 class ParametersServiceTestCase: XCTestCase {
 
+    override func setUp() {
+        super.setUp()
+        UserDefaults.standard.removeObject(forKey: ParametersService.Keys.currency)
+        UserDefaults.standard.removeObject(forKey: ParametersService.Keys.currencyIndex)
+        UserDefaults.standard.removeObject(forKey: ParametersService.Keys.language)
+        UserDefaults.standard.removeObject(forKey: ParametersService.Keys.languageIndex)
+        UserDefaults.standard.removeObject(forKey: ParametersService.Keys.city)
+        UserDefaults.standard.removeObject(forKey: ParametersService.Keys.cityIndex)
+    }
+
     // PS = ParametersService
     func testGivenPSCurrencyHasNoValue_WhenValueOfPSCurrencyIsUsed_ThenPSCurrencyShouldReturnUSD() {
-        // Given
-        UserDefaults.standard.removeObject(forKey: ParametersService.Keys.currency)
 
         // When
         let currency = ParametersService.currency
@@ -24,7 +32,6 @@ class ParametersServiceTestCase: XCTestCase {
     }
 
     func testGivenPSLanguageHasNoValue_WhenValueOfPSLanguageIsUsed_ThenPSLanguageShouldReturnEn() {
-        UserDefaults.standard.removeObject(forKey: ParametersService.Keys.language)
 
         let language = ParametersService.language
 
@@ -32,7 +39,6 @@ class ParametersServiceTestCase: XCTestCase {
     }
 
     func testGivenPSCityHasNoValue_WhenValueOfPSCityIsUsed_ThenPSCityShouldReturnNewYork() {
-        UserDefaults.standard.removeObject(forKey: ParametersService.Keys.city)
 
         let city = ParametersService.city
 

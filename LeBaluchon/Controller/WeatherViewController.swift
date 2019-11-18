@@ -30,7 +30,7 @@ class WeatherViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        toggleActivityIndicator(shown: false)
+        toggleActivityIndicator(shown: true)
         showFirstWeather()
         showSecondWeather(city: ParametersService.city)
     }

@@ -62,4 +62,13 @@ class ExchangeService {
         task?.resume()
     }
 
+    // Function which converts an amount
+    static func convertAmount(amount: Double, exchangeRate: Double) -> Double {
+        return roundAmount(amount: amount * exchangeRate)
+    }
+
+    // Function which rounds an amount
+    private static func roundAmount(amount: Double) -> Double {
+        return Double(round(100*amount)/100)
+    }
 }

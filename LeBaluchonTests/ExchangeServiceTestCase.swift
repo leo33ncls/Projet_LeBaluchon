@@ -12,6 +12,9 @@ import XCTest
 class ExchangeServiceTestCase: XCTestCase {
     let targetCurrency = "USD"
 
+    //=====================
+    // Test function getExchange
+
     func testGetExchangeShouldPostFailedCallbackIfError() {
         // Given
         let exchangeService = ExchangeService(session: URLSessionFake(data: nil,
@@ -111,5 +114,44 @@ class ExchangeServiceTestCase: XCTestCase {
         }
 
         wait(for: [expectation], timeout: 0.01)
+    }
+
+    //=======================
+    // Test function convertAmount
+
+    func testGivenAmountEqual52AndExchangeRateEqual1Dot52_WhenConvertAmountIsCalled_ThenShouldReturn79Dot04() {
+        // Given
+        let amount = 52.0
+        let exchangeRate = 1.52
+
+        // When
+        let convertedAmount = ExchangeService.convertAmount(amount: amount, exchangeRate: exchangeRate)
+
+        // Then
+        XCTAssertEqual(convertedAmount, 79.04)
+    }
+
+    func testGivenAmountEqua267Dot50AndExchangeRateEqual120Dot28_WhenConvertAmountIsCalled_ThenShouldReturn32174D90() {
+        // Given
+        let amount = 267.50
+        let exchangeRate = 120.28
+
+        // When
+        let convertedAmount = ExchangeService.convertAmount(amount: amount, exchangeRate: exchangeRate)
+
+        // Then
+        XCTAssertEqual(convertedAmount, 32174.90)
+    }
+
+    func testGivenAmountEqual103Dot05AndExchangeRateEqual0Dot8587_WhenConvertAmountIsCalled_ThenShouldReturn88Dot49() {
+        // Given
+        let amount = 103.05
+        let exchangeRate = 0.8587
+
+        // When
+        let convertedAmount = ExchangeService.convertAmount(amount: amount, exchangeRate: exchangeRate)
+
+        // Then
+        XCTAssertEqual(convertedAmount, 88.49)
     }
 }
